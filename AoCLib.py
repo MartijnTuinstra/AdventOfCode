@@ -25,6 +25,13 @@ class Arr2D:
 
         return self.data[y][x]
     def setLocation(self, x, y, value):
+        if x < 0 or y < 0:
+            print(f" Cannot set location {x}:{y}")
+            return ''
+        elif x >= self.width or y >= self.height:
+            print(f" Cannot set location {x}:{y}")
+            return ''
+
         self.data[y][x] = value
 
     def __len__(self):
