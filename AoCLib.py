@@ -17,7 +17,11 @@ class Arr2D:
 
         self.loc = (0, 0)
 
-    def getLocation(self, x, y):
+    def getLocation(self, x, y=0):
+        if isinstance(x, complex):
+            y = int(x.imag)
+            x = int(x.real)
+
         if x < 0 or y < 0:
             return ''
         elif x >= self.width or y >= self.height:
@@ -56,6 +60,26 @@ class Arr2D:
             raise StopIteration
 
         return result
+
+    def print_with_highlight(self, func):
+        for y in range(self.height):
+            for x in range(self.width):
+                if func(x, y):
+                    print(f"\u001b[31m{str(self.data[y][x])}\u001b[0m", end="")
+                else:
+                    print(str(self.data[y][x]), end="")
+            print()
+
+    def __repr__(self):
+        s = ""
+
+        for row in self.data:
+            for c in row:
+                s += str(c)
+            s+= "\n"
+
+        s = s[:-1]
+        return s
 
 def AoCLoad(path):
     lines = []
